@@ -1,40 +1,38 @@
 import React from 'react'
-import axios from 'axios'
-import { useLazyQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 
-const BOOKS = gql`
+import GameCard from '~components/GameCard'
+
+const HOT_GAMES_QUERY = gql`
   {
-    books {
-      title
+    hotGames {
+      id
+      name
+      imageUrl
+      description
+      rank
     }
   }
 `
 
 const Main = () => {
-  const [getBooks, { data }] = useLazyQuery(BOOKS)
+  const { data } = useQuery(HOT_GAMES_QUERY)
   console.log('Main -> data', data)
-
-  const clickHandler = () => {
-    // axios
-    //   .get(
-    //     'https://api.geekdo.com/api/hotness?geeksite=boardgame&nosession=1&objecttype=thing',
-    //     { crossDomain: true }
-    //   )
-    //   // .then(({ data }) => parseStringPromise(data))
-    //   .then(result => {
-    //     console.log('clickHandler -> result', result)
-    //   })
-    //   .catch(error => {
-    //     console.log('error: ', error)
-    //   })
-    getBooks()
-  }
 
   return (
     <div>
       <div>Hell World!</div>
-      <button onClick={clickHandler}>get some stuff</button>
+      <div>
+        {data?.hotGames.map(game => (
+          <GameCard
+            id={game.id}
+            name={game.name}
+            image={game.imageUrl}
+            description={game.description}
+          />
+        ))}
+      </div>
     </div>
   )
 }
