@@ -3,9 +3,8 @@ import { render } from 'react-dom'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { createGlobalStyle } from 'styled-components'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
-import Main from '~components/Main'
+import Router from '~components/Router'
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -24,13 +23,7 @@ const client = new ApolloClient({
 const App = () => (
   <ApolloProvider client={client}>
     <GlobalStyles />
-    <Router>
-      <Switch>
-        <Route path="/">
-          <Main />
-        </Route>
-      </Switch>
-    </Router>
+    <Router />
   </ApolloProvider>
 )
 

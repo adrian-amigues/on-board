@@ -27,6 +27,10 @@ const TextContainer = styled.div`
   font-family: 'Baloo Thambi 2';
 `
 
+const Title = styled.h2`
+  font-size: 1.2rem;
+`
+
 const Description = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
@@ -35,20 +39,33 @@ const Description = styled.div`
   -webkit-box-orient: vertical;
 `
 
-const GameCard = ({ id, name, image, description }) => {
-  console.log('GameCard -> name', name)
+const GameCard = ({
+  name,
+  image,
+  description,
+  bggHref,
+  yearPublished,
+  rank,
+  minPlayers,
+  maxPlayers,
+}) => {
   return (
     <Card>
       <ImageContainer>
         <Image src={image} />
       </ImageContainer>
       <TextContainer>
-        <span>{name}</span>
-        <Description>
-          {/* <p> */}
-          {description}
-          {/* </p> */}
-        </Description>
+        <Title>
+          {name} - {yearPublished}
+        </Title>
+        <p>Rank: {rank}</p>
+        <Description>{description}</Description>
+        <p>
+          Player count: {minPlayers} - {maxPlayers}
+        </p>
+        <a target="_blank" href={bggHref}>
+          Check it out at BoardGameGeek
+        </a>
       </TextContainer>
     </Card>
   )
